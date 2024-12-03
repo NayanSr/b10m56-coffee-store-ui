@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 const AddCoffee = () => {
 
 const handleAddCoffee=e=>{
@@ -12,8 +14,27 @@ const handleAddCoffee=e=>{
   const photo= form.photo.value;
   const newCoffee= {name, quantity, supplier,test,category,details, photo}
 
-
   console.log(newCoffee);
+
+  fetch('http://localhost:5000/coffee',{
+    method:'POST',
+    headers: {"content-type":'application/json'},
+    body: JSON.stringify(newCoffee)
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.insertedId){
+    Swal.fire({
+      title: 'Success!',
+       text: 'Successfully added',
+       icon: 'success',
+       confirmButtonText: 'Cool'
+})
+      console.log(data);
+    }
+  })
+
+ 
 }
 
 
@@ -95,3 +116,14 @@ const handleAddCoffee=e=>{
 };
 
 export default AddCoffee;
+
+
+
+/* 
+https://i.ibb.co.com/cyJRnJw/1.png
+https://i.ibb.co.com/GRKybSQ/2.png
+https://i.ibb.co.com/XSv5Mvk/3.png
+https://i.ibb.co.com/w7tCKyP/4.png
+https://i.ibb.co.com/db0ytwJ/5.png
+https://i.ibb.co.com/JnPK7GM/6.png
+*/
