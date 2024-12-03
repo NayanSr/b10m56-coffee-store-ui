@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const CoffeeCards = ({ coffee }) => {
@@ -44,7 +45,9 @@ const CoffeeCards = ({ coffee }) => {
       </section>
       <section className="flex gap-4 flex-col">
         <button>O</button>
-        <button>Edit</button>
+       <Link to={`/updateCoffee/${_id}`}>
+         <button>Edit</button>
+       </Link>
         <button onClick={() => handleDelete(_id)} className="btn bg-orange-500">
           Delete
         </button>
