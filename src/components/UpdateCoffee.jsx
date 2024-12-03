@@ -1,10 +1,40 @@
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateCoffee = () => {
     const coffee= useLoaderData();
-    const {  name,quantity, supplier, test, photo, category, details } = coffee;
+    const { _id, name,quantity, supplier, test, photo, category, details } = coffee;
     const handleUpdateCoffee= e =>{
-        e.preventDefault()
+        e.preventDefault();
+        const form= e.target;
+        const name=form.name.value;
+        const quantity= form.quantity.value;
+        const supplier= form.supplier.value;
+        const test = form.test.value;
+        const category = form.category.value;
+        const details = form.details.value;
+        const photo= form.photo.value;
+        const updatedCoffee= {name, quantity, supplier,test,category,details, photo}
+      
+        console.log(updatedCoffee);
+      
+        fetch(`http://localhost:5000/coffees/${_id}`,{
+          method:'PUT',
+          headers: {"content-type":'application/json'},
+          body: JSON.stringify(updatedCoffee)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          if(data.modifiedCount){
+          Swal.fire({
+            title: 'Success!',
+             text: 'Successfully updated',
+             icon: 'success',
+             confirmButtonText: 'Cool'
+      })
+            console.log(data);
+          }
+        })
     }
 
 
